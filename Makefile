@@ -11,5 +11,12 @@ UBOOT_MAKE_FLAGS =
 uboot:
 	cd "$(UBOOT_DIR)" && \
 	make $(UBOOT_MAKE_FLAGS)
+
+IMX_MKIMAGE_DIR = imx-mkimage
+IMX_MKIMAGE_FLAGS = SOC=iMX8M flash_evk dtbs=imx8mq-pico-pi.dtb
+package:
+	./script.sh && \
+	cd "$(IMX_MKIMAGE_DIR)" && \
+	make $(IMX_MKIMAGE_FLAGS)
  
-.PHONY: uboot atf
+.PHONY: uboot atf package
