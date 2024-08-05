@@ -1,4 +1,4 @@
-export CROSS_COMPILE = ./toolchain/bin/aarch64-none-linux-gnu-
+export CROSS_COMPILE = /home/tpopescu/Documents/Workspace/ASS2024/toolchain/bin/aarch64-none-linux-gnu-
  
 ATF_DIR = imx-atf
 ATF_MAKE_FLAGS = SPD=none PLAT=TODO
