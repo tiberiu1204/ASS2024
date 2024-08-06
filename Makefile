@@ -14,9 +14,13 @@ uboot:
 
 IMX_MKIMAGE_DIR = imx-mkimage
 IMX_MKIMAGE_FLAGS = SOC=iMX8M flash_evk dtbs=imx8mq-pico-pi.dtb
-package:
+UUU_PATH = mfgtools/build/uuu/
+package: atf uboot
 	./script.sh && \
 	cd "$(IMX_MKIMAGE_DIR)" && \
-	make $(IMX_MKIMAGE_FLAGS)
+	make "$(IMX_MKIMAGE_FLAGS)" && \
+	cd .. && \
+	cp "$(IMX_MKIMAGE_DIR)/iMX8M/flash.bin" ./ && \
+	cp "$(UUU_PATH)/uuu" ./
  
 .PHONY: uboot atf package
