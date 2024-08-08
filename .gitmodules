@@ -13,3 +13,9 @@
 [submodule "buildroot"]
 	path = buildroot
 	url = https://github.com/buildroot/buildroot.git
+[submodule "optee_os"]
+	path = optee_os
+	url = https://github.com/OP-TEE/optee_os.git
+[submodule "optee_examples"]
+	path = optee_examples
+	url = https://github.com/linaro-swg/optee_examples.git
