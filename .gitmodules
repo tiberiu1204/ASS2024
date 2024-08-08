@@ -10,3 +10,6 @@
 [submodule "mfgtools"]
 	path = mfgtools
 	url = https://github.com/nxp-imx/mfgtools.git
+[submodule "buildroot"]
+	path = buildroot
+	url = https://github.com/buildroot/buildroot.git

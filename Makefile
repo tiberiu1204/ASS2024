@@ -18,9 +18,35 @@ UUU_PATH = mfgtools/build/uuu/
 package: atf uboot
 	./script.sh && \
 	cd "$(IMX_MKIMAGE_DIR)" && \
-	make "$(IMX_MKIMAGE_FLAGS)" && \
+	make $(IMX_MKIMAGE_FLAGS) && \
 	cd .. && \
 	cp "$(IMX_MKIMAGE_DIR)/iMX8M/flash.bin" ./ && \
 	cp "$(UUU_PATH)/uuu" ./
- 
-.PHONY: uboot atf package
+
+flash: package
+	sudo ./uuu -b spl flash.bin
+
+fit: linux buildroot
+	cd ./staging && \
+	mkimage -f linux.its linux.fit
+
+LINUX_DIR=linux
+linux:
+	cd "$(LINUX_DIR)" && \
+	make defconfig ARCH=arm64 && \
+	make ARCH=arm64 -j 24 && \
+	cd .. && \
+	cp ./linux/arch/arm64/boot/dts/freescale/imx8mq-pico-pi.dtb ./staging/ && \
+	cp ./linux/arch/arm64/boot/Image ./staging/
+
+BUILDROOT_DIR=buildroot
+buildroot:
+	cd "$(BUILDROOT_DIR)" && \
+	make -j 24 && \
+	cd .. && \
+	cp ./buildroot/output/images/rootfs.cpio ./staging/
+
+connect:
+	sudo picocom -b 115200 /dev/ttyUSB0
+
+.PHONY: uboot atf package buildroot linux flash fit connect
